@@ -58,7 +58,7 @@ public:
   {
     if(readyToPID) 
     {
-      DEBUG_SERIAL.println("PID");
+      // DEBUG_SERIAL.println("PID");
       ProcessPID();
       readyToPID = 0;
 
