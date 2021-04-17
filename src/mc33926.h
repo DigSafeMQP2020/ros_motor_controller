@@ -3,13 +3,16 @@
 
 #include "motor_driver.h"
 
-#define M1A 6
-#define M1B 7
-#define PWM1 8
+#define M1A 9
+#define M1B 8
+#define PWM1 7
 
-#define M2A 5
-#define M2B 4
-#define PWM2 3
+#define M2A 6
+#define M2B 5
+#define PWM2 4
+
+#define LIMIT1 12
+#define LIMIT2 13
 
 class MC33926 : public MotorDriver
 {
