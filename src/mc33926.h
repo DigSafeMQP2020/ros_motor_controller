@@ -4,8 +4,8 @@
 #include "motor_driver.h"
 
 #define M1A 9
-#define M1B 8
-#define PWM1 7
+#define M1B 7
+#define PWM1 8
 
 #define M2A 6
 #define M2B 5
@@ -61,6 +61,10 @@ protected:
   {   
     if(commMode == COMM_PWM)
     {
+          // DEBUG_SERIAL.print(powerA);
+          // DEBUG_SERIAL.print('\t');
+          // DEBUG_SERIAL.print(powerB);
+          // DEBUG_SERIAL.print('\n');
       if(powerA > 0) 
       {
         digitalWrite(M1A, HIGH);

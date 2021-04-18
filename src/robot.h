@@ -88,13 +88,15 @@ public:
       DEBUG_SERIAL.print(motorPositions[1]);
       DEBUG_SERIAL.print('\t');
 
-      effort = controller.CalcEffort();
-      CommandMotors(effort);
 
       DEBUG_SERIAL.print(effort[0]);
       DEBUG_SERIAL.print('\t');
       DEBUG_SERIAL.print(effort[1]);
       DEBUG_SERIAL.print('\n');        
+
+      effort = controller.CalcEffort();
+      CommandMotors(effort);
+
   }
   
   void SetTargetPositions(int16_t left, int16_t right) //could
