@@ -53,6 +53,7 @@ void setup()
   robot.Init();
 
   DEBUG_SERIAL.println("/setup");
+  robot.SetTargetPositions(0,0);
 }
 
 void loop(void)
@@ -98,10 +99,11 @@ void loop(void)
     //   {
     //     item = 0;
     //   }
+    //       robot.SetTargetPositions(points[item][1], points[item][0]);
+
     // }
 
-    // robot.SetTargetPositions(points[item][0], points[item][1]);
-    robot.SetTargetPositions(0,0);
+    // robot.SetTargetPositions(0,0);
 
   }
 }

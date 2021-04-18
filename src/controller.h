@@ -71,7 +71,7 @@ public:
     if(abs(sumError[1]) > (INTEGRAL_CAP / Ki)) sumError[1] -= error[1]; //cap the sum of the errors 
 
     i32vector effort = (error * Kp + sumError * Ki) / 128; //Kp and Ki in 128's to make integer math work out
-
+    //effort[0] = 0;
     return effort;
   }
 
