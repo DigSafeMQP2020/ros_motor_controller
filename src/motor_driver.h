@@ -5,8 +5,8 @@
 
 enum COMM_METHOD {COMM_NONE, COMM_RC, COMM_PACKET_SERIAL, COMM_PWM};
 
-#define MAX_POWER1 255 // Power to contrain around to prevent drawing too many amps
-#define MAX_POWER2 255 // Power to contrain around to prevent drawing too many amps
+#define MAX_POWER1 200 // Power to contrain around to prevent drawing too many amps
+#define MAX_POWER2 200 // Power to contrain around to prevent drawing too many amps
 
 class MotorDriver
 {
