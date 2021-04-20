@@ -5,7 +5,8 @@
 
 enum COMM_METHOD {COMM_NONE, COMM_RC, COMM_PACKET_SERIAL, COMM_PWM};
 
-#define MAX_POWER 255 // Power to contrain around to prevent drawing too many amps
+#define MAX_POWER1 255 // Power to contrain around to prevent drawing too many amps
+#define MAX_POWER2 255 // Power to contrain around to prevent drawing too many amps
 
 class MotorDriver
 {
@@ -34,8 +35,8 @@ public:
     // DEBUG_SERIAL.print('\t');
     // DEBUG_SERIAL.print(powerB);
     // DEBUG_SERIAL.print('\t');
-    powerA = constrain(powerA, -MAX_POWER, MAX_POWER); // Was -255 255
-    powerB = constrain(powerB, -MAX_POWER, MAX_POWER); // Was -255 255
+    powerA = constrain(powerA, -MAX_POWER1, MAX_POWER1); // Was -255 255
+    powerB = constrain(powerB, -MAX_POWER2, MAX_POWER2); // Was -255 255
 
 
     // DEBUG_SERIAL.print(powerA);
