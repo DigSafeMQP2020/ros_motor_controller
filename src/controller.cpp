@@ -57,10 +57,10 @@ volatile uint8_t readyToPID = 0;
 
 void PositionController::Init(void)
 {
-  kp_vec[0] = KP_DEF1;
-  kp_vec[1] = KP_DEF2;
-  ki_vec[0] = KI_DEF1;
-  ki_vec[0] = KI_DEF1;
+  kp_vec[0] = Kp1;
+  kp_vec[1] = Kp2; 
+  ki_vec[0] = Ki1;
+  ki_vec[1] = Ki2;
 #ifdef DEBUG_SERIAL
   DEBUG_SERIAL.println("MotionController::Init");
 #endif

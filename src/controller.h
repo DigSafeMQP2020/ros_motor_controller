@@ -31,8 +31,11 @@ protected:
   ivector target;   //target position, using integer math to speed up the processing
   ivector estimate; //wheel position estimate
 
-  uint16_t Kp = KP_DEF1;
-  uint16_t Ki = KI_DEF1;
+  uint16_t Kp1 = KP_DEF1;
+  uint16_t Ki1 = KI_DEF1;
+
+  uint16_t Kp2 = KP_DEF2;
+  uint16_t Ki2 = KI_DEF2;
 
   i32vector kp_vec;
   i32vector ki_vec;
@@ -73,9 +76,9 @@ public:
 
     sumError += error;
 
-    if (abs(sumError[0]) > (INTEGRAL_CAP / Ki))
+    if (abs(sumError[0]) > (INTEGRAL_CAP / Ki1))
       sumError[0] -= error[0]; //cap the sum of the errors
-    if (abs(sumError[1]) > (INTEGRAL_CAP / Ki))
+    if (abs(sumError[1]) > (INTEGRAL_CAP / Ki2))
       sumError[1] -= error[1]; //cap the sum of the errors
 
     i32vector effort;                                                   // Create effort ivector
