@@ -37,9 +37,6 @@ protected:
   uint16_t Kp2 = KP_DEF2;
   uint16_t Ki2 = KI_DEF2;
 
-  i32vector kp_vec;
-  i32vector ki_vec;
-  i32vector kd_vec;
 
 public:
   PositionController(void) : target(2), estimate(2) {}
@@ -81,9 +78,11 @@ public:
     if (abs(sumError[1]) > (INTEGRAL_CAP / Ki2))
       sumError[1] -= error[1]; //cap the sum of the errors
 
-    i32vector effort;                                                   // Create effort ivector
-    effort[0] = (error[0] * kp_vec[0] + sumError[0] * ki_vec[0]) / 128; //Kp and Ki in 128's to make integer math work out;
-    effort[1] = (error[1] * kp_vec[1] + sumError[1] * ki_vec[1]) / 128; //Kp and Ki in 128's to make integer math work out;
+    i32vector effort(2);                                                   // Create effort ivector
+    effort[0] = (error[0] * Kp1 + sumError[0] * Ki1) / 128; //Kp and Ki in 128's to make integer math work out;
+    effort[1] = (error[1] * Kp2 + sumError[1] * Ki2) / 128; //Kp and Ki in 128's to make integer math work out;
+    
+    // i32vector effort = (error * Kp1 + sumError * Ki1) / 128;
 
     //effort[0] = 0;
     return effort;
