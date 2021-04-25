@@ -59,8 +59,8 @@ void setup()
 void loop(void)
 {
   robot.MainLoop();
-  // if(CheckDebugSerial())
-  if (true)
+  if(CheckDebugSerial())
+  // if (true)
   {
     // all in m/s, rad/s
     //  float left = debugString.toFloat();

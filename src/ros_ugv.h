@@ -8,7 +8,7 @@
 #include <std_msgs/UInt16.h>
 #include <std_msgs/UInt32.h>
 #include <std_msgs/UInt16MultiArray.h>
-// #include <std_msgs/Bool.h>
+#include <std_msgs/Bool.h>
 
 // #define ____THRESHOLD 10000
 
@@ -30,7 +30,7 @@ protected:
   ros::Subscriber<std_msgs::UInt16> subCmdMode;
   ros::Publisher pubCmdSource;
   std_msgs::UInt16 cmdSource; //use a uint16 to keep everything lined up
-  std_msgs::UInt16 pidSource;
+  // std_msgs::UInt16MultiArray pidSource;
 
   // ros::Publisher pubAtTarget;
   // std_msgs::Bool isAtTarget;
@@ -120,10 +120,13 @@ public:
 
   void HandlePIDCommand(const std_msgs::UInt16MultiArray &pid_targets)
   {
-    controller.Kp1 = pid_targets.data[0];
-    controller.Kp2 = pid_targets.data[1];
-    controller.Ki1 = pid_targets.data[2];
-    controller.Ki2 = pid_targets.data[3];
+    if (UGV::cmdSource == CMD_SRC_ROS)
+    {
+      controller.Kp1 = pid_targets.data[0];
+      controller.Kp2 = pid_targets.data[1];
+      controller.Ki1 = pid_targets.data[2];
+      controller.Ki2 = pid_targets.data[3];
+    }
   }
 };
 
