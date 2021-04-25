@@ -9,3 +9,7 @@ void CmdMotorTargetCallback(const std_msgs::UInt32& motor_targets)
 {
   robot.HandleMotorTargetCommand(motor_targets);
 }
+
+void CmdPIDCallback(const std_msgs::UInt16MultiArray& pid_targets){
+  robot.HandlePIDCommand(pid_targets);
+}

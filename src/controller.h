@@ -31,15 +31,21 @@ protected:
   ivector target;   //target position, using integer math to speed up the processing
   ivector estimate; //wheel position estimate
 
+  // uint16_t Kp1 = KP_DEF1;
+  // uint16_t Ki1 = KI_DEF1;
+
+  // uint16_t Kp2 = KP_DEF2;
+  // uint16_t Ki2 = KI_DEF2;
+
+
+public:
+  PositionController(void) : target(2), estimate(2) {}
+
   uint16_t Kp1 = KP_DEF1;
   uint16_t Ki1 = KI_DEF1;
 
   uint16_t Kp2 = KP_DEF2;
   uint16_t Ki2 = KI_DEF2;
-
-
-public:
-  PositionController(void) : target(2), estimate(2) {}
 
   void Init(void);
 
