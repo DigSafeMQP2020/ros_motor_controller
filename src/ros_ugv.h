@@ -7,12 +7,14 @@
 
 #include <std_msgs/UInt16.h>
 #include <std_msgs/UInt32.h>
-// #include <std_msgs/Bool.h>
+#include <std_msgs/UInt16MultiArray.h>
+#include <std_msgs/Bool.h>
 
 // #define ____THRESHOLD 10000
 
-void CmdModeCallback(const std_msgs::UInt16&);
-void CmdMotorTargetCallback(const std_msgs::UInt32&);
+void CmdModeCallback(const std_msgs::UInt16 &);
+void CmdMotorTargetCallback(const std_msgs::UInt32 &);
+void CmdPIDCallback(const std_msgs::UInt16MultiArray &);
 
 class ROSUGV : public UGV
 {
@@ -21,23 +23,27 @@ protected:
   ros::NodeHandle nh;
 
   ros::Subscriber<std_msgs::UInt32> subMotorTargets;
+  ros::Subscriber<std_msgs::UInt16MultiArray> subPID;
   ros::Publisher pubMotorPositions;
   std_msgs::UInt32 motorDatum; //use a uint32 to pass motor speeds
 
   ros::Subscriber<std_msgs::UInt16> subCmdMode;
   ros::Publisher pubCmdSource;
   std_msgs::UInt16 cmdSource; //use a uint16 to keep everything lined up
+  // std_msgs::UInt16MultiArray pidSource;
 
   // ros::Publisher pubAtTarget;
   // std_msgs::Bool isAtTarget;
 
 public:
-  ROSUGV(void) :  subMotorTargets("motor_targets", CmdMotorTargetCallback), //motor target is in encoder ticks per second
-                  pubMotorPositions("motor_positions", &motorDatum), //in encoder ticks
-                  subCmdMode("cmd_mode", CmdModeCallback),
-                  pubCmdSource("cmd_source", &cmdSource)
-                  // pubAtTarget("at_target", &isAtTarget)
-  {}
+  ROSUGV(void) : subMotorTargets("motor_targets", CmdMotorTargetCallback), //motor target is in encoder ticks per second
+                 pubMotorPositions("motor_positions", &motorDatum),        //in encoder ticks
+                 subCmdMode("cmd_mode", CmdModeCallback),
+                 subPID("spray_pid", CmdPIDCallback),
+                 pubCmdSource("cmd_source", &cmdSource)
+  // pubAtTarget("at_target", &isAtTarget)
+  {
+  }
 
   void Init(void)
   {
@@ -46,17 +52,20 @@ public:
     nh.initNode();
 
     nh.subscribe(subMotorTargets);
+
     nh.advertise(pubMotorPositions);
 
     nh.subscribe(subCmdMode);
     nh.advertise(pubCmdSource);
+
+    nh.subscribe(subPID);
 
     // nh.advertise(pubAtTarget);
   }
 
   void MainLoop(void)
   {
-    if(readyToPID) 
+    if (readyToPID)
     {
       // DEBUG_SERIAL.println("PID");
       ProcessPID();
@@ -67,11 +76,11 @@ public:
       // bool isDone = true;
       // if(abs(error[0]) > ____THRESHOLD){
       //   isDone = false;
-      // } 
+      // }
       // if(abs(error[1]) > ____THRESHOLD) {
       //   isDone = false;
       // }
-      
+
       // if(isDone)
       // {
       //   isAtTarget.data = isDone;
@@ -98,14 +107,25 @@ public:
     return;
   }
 
-  void HandleMotorTargetCommand(const std_msgs::UInt32& motor_targets)
+  void HandleMotorTargetCommand(const std_msgs::UInt32 &motor_targets)
   {
-    if(UGV::cmdSource == CMD_SRC_ROS)
+    if (UGV::cmdSource == CMD_SRC_ROS)
     {
       ivector targets(2);
       memcpy(&targets[0], &motor_targets.data, 4);
-    
+
       SetTargetPositions(targets[0], targets[1]);
+    }
+  }
+
+  void HandlePIDCommand(const std_msgs::UInt16MultiArray &pid_targets)
+  {
+    if (UGV::cmdSource == CMD_SRC_ROS)
+    {
+      controller.Kp1 = pid_targets.data[0];
+      controller.Kp2 = pid_targets.data[1];
+      controller.Ki1 = pid_targets.data[2];
+      controller.Ki2 = pid_targets.data[3];
     }
   }
 };

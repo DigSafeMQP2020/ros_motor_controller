@@ -15,7 +15,7 @@ Install prof lewin `linalg-micro` repo as library
 `https://github.com/gcl8a/linalg-micro`
 
 
-Change `&Serial` in `.pio/libdeps/sparkfun_samd21_mini_usb/Rosserial Arduino Library/src/ArduinoHardware.h` to `&SERIAL_MONITOR`
+Change `&Serial` in `.pio/libdeps/sparkfun_samd21_mini_usb/Rosserial Arduino Library/src/ArduinoHardware.h` to `&SERIAL_PORT_MONITOR`
 
 ### Instructions and things
 

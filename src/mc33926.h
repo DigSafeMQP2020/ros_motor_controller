@@ -11,6 +11,14 @@
 #define M2B 5
 #define PWM2 4
 
+// #define M1A 6
+// #define M1B 5
+// #define PWM1 4
+
+// #define M2A 9
+// #define M2B 7
+// #define PWM2 8
+
 #define LIMIT1 12
 #define LIMIT2 13
 
