@@ -31,14 +31,14 @@ int item = 0;
 //                          //{0, 0}
 //                          };
 
-int16_t points[6][2] = {
-          {0, 0},
-          {0, -800},
-          {675, -1665},
-          {1344, -2676},
-          {675, -1665},
-          {0, -800}
-};
+// int16_t points[6][2] = {
+//           {0, 0},
+//           {0, -800},
+//           {675, -1665},
+//           {1344, -2676},
+//           {675, -1665},
+//           {0, -800}
+//};
 //N.B.: No need to start ROS serial manually, as the constructors take care of that for us
 void setup()
 {
